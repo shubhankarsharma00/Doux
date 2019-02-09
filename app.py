@@ -32,6 +32,7 @@ def userlogin():
                 session['RollNumber'] = RollNumber
                 session['UserId'] = user.UserId
                 session['logged_in'] = True
+                session['type'] = 'user'
         return redirect(url_for('homepage'))
 
 @app.route('/userlogout/')
@@ -93,6 +94,7 @@ def venlogin():
                 session['Title'] = Title
                 session['VendorId'] = vendor.VendorId
                 session['logged_in'] = True
+                session['type'] = 'vendor'
         return redirect(url_for('homepage'))
 
 @app.route('/venlogout/')
