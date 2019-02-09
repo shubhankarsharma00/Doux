@@ -136,4 +136,3 @@ def venregister():
             db.session.close()
             flash("Successfully registered!")
             return redirect(url_for('homepage'))
->>>>>>> Stashed changes
