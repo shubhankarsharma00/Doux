@@ -48,6 +48,28 @@
         </div>
     </nav>
 
+<!-- Page Content -->
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+            <h1 class="my-4">{% block heading %}{% endblock %}
+            </h1>
+
+            {% block content %}
+            {% endblock %}
+
+        </div>
+
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /.container -->
+
+
     <!-- Footer -->
     <footer class="page-footer font-small blue pt-4">
         <div class="container-fluid text-center text-md-left">

@@ -6,6 +6,10 @@ from config import *
 def homepage():
 	return render_template("index.html")
 
+@app.route('/login')
+def login():
+	return render_template("userregister.html")
+
 # @app.route('/login',)
 # def login():	
 #     if request.method == "GET":
