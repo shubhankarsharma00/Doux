@@ -23,7 +23,7 @@ def userlogin():
             flash("This RollNumber doesn't exists!")
             return redirect(url_for('userlogin'))
         else:
-            password_correct = sha256_crypt.verify(password, user.password)
+            password_correct = sha256_crypt.verify(password, user.Password)
             if not(password_correct):
                 flash("Wrong password entered!")
                 return redirect(url_for('userlogin'))
@@ -84,7 +84,7 @@ def venlogin():
             flash("This Title doesn't exists!")
             return redirect(url_for('venlogin'))
         else:
-            password_correct = sha256_crypt.verify(password, vendor.password)
+            password_correct = sha256_crypt.verify(password, vendor.Password)
             if not(password_correct):
                 flash("Wrong password entered!")
                 return redirect(url_for('venlogin'))
