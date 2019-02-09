@@ -73,6 +73,9 @@ def userregister():
             flash("Successfully registered!")
             return redirect(url_for('homepage'))
 
+
+
+######### Vendor ############
 @app.route('/venlogin', methods=['POST','GET'])
 def venlogin():	
     if request.method == "GET":
@@ -138,3 +141,8 @@ def venregister():
             db.session.close()
             flash("Successfully registered!")
             return redirect(url_for('homepage'))
+
+@app.route('/venprofile/<int:VendorId>/')
+def profile_page(VendorId):
+    vendor = Vendor.query.filter_by(VendorId=VendorId).all()
+    return render_template("venprofile.html", vendor = vendor)

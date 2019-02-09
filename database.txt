@@ -29,6 +29,7 @@ create table orders(
     ProductId int NOT NULL,
     UserId int NOT NULL,
     Quantity int NOT NULL,
+    Status varchar(255) NOT NULL,
     OrderAt DATETIME,
     PRIMARY KEY (OrderId),
     FOREIGN KEY (ProductId) REFERENCES products(ProductId),
