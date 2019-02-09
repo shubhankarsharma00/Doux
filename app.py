@@ -146,3 +146,15 @@ def venregister():
 def venprofile(VendorId):
     orders = Orders.query.filter_by(VendorId=VendorId).all()
     return render_template("venprofile.html", orders = orders)
+
+@app.route('/user/<int:uid>')
+def userProfile(uid):
+    if 'UserId' in session and session['UserId'] == uid:  
+        user = User.query.filter_by(UserId = uid).first_or_404()
+        return render_template("editUserProfile.html", user = user)
+    else:
+        user = User.query.filter_by(UserId = uid).first_or_404()
+        return render_template("userProfile.html", user = user)
+
+
+
