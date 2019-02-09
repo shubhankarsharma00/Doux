@@ -1,2 +1,2 @@
 # DOUX
-	- An online food ordering app.
+	An online food ordering app.
