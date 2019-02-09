@@ -30,17 +30,26 @@
                     </form>
                     {% if session['logged_in'] %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('homepage',u_id=session['u_id'])}}">{{session["username"]|capitalize}}'s Profile</a>
+                        <a class="nav-link" href="{{url_for('homepage',u_id=session['u_id'])}}">{{session["username"]|capitalize}}Profile</a>
                     </li>
+                    {% if session['type'] == 'user' %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('homepage')}}">Logout</a>
+                        <a class="nav-link" href="{{url_for('userlogout')}}">Logout</a>
                     </li>
                     {% else %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('homepage')}}">Log In</a>
+                        <a class="nav-link" href="{{url_for('venlogout')}}">Logout</a>
+                    </li>
+                    {% endif %}
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('userlogin')}}">User Log In</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('homepage')}}">Sign Up</a>
+                        <a class="nav-link" href="{{url_for('venlogin')}}">Vendor Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{url_for('venregister')}}">Sign Up</a>
                     </li>
                     {% endif %}
                 </ul>
