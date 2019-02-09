@@ -77,7 +77,7 @@ def venlogin():
     if request.method == "GET":
         return render_template("venlogin.html")
     else:
-        Title = request.form['Title']
+        Title = request.form['title']
         password = request.form['password']
         vendor = Vendor.query.filter_by(Title=Title).first()
         if not(vendor):
