@@ -1,0 +1,34 @@
+create database doux;
+use doux;
+create table user(RollNumber int NOT NULL UNIQUE,
+	Password varchar(255) NOT NULL,
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
+    PhoneNumber varchar(10) NOT NULL,
+    PRIMARY KEY (RollNumber));
+
+create table vendor(VendorId varchar(255) NOT NULL UNIQUE,
+	Password varchar(255) NOT NULL,
+    Title varchar(255) NOT NULL,
+    LastName varchar(255),
+    FirstName varchar(255) NOT NULL,
+    PhoneNumber varchar(10) NOT NULL,
+    PRIMARY KEY (VendorId));
+
+create table products(	
+    ProductId int NOT NULL UNIQUE auto_increment,
+    VendorId varchar(255) NOT NULL,
+    ProductName varchar(255) NOT NULL,
+    ProductPrice int NOT NULL,
+    PRIMARY KEY (ProductId),
+    FOREIGN KEY (VendorId) REFERENCES vendor(VendorId));
+
+create table orders(
+    OrderId int NOT NULL auto_increment,
+    ProductId int NOT NULL,
+    RollNumber int NOT NULL,
+    Quantity int NOT NULL,
+    OrderAt DATETIME,
+    PRIMARY KEY (OrderId),
+    FOREIGN KEY (ProductId) REFERENCES products(ProductId),
+    FOREIGN KEY (RollNumber) REFERENCES user(RollNumber));
