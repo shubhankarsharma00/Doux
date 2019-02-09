@@ -1,14 +1,20 @@
 {% extends "layout.html" %}
 
-{% block title %}User Register Page{% endblock %}
-{% block heading %}User Register Page{% endblock %}
+{% block title %}Vendor Register Page{% endblock %}
+{% block heading %}Vendor Register Page{% endblock %}
 
 {% block content %}
 <form method="post" class="form-horizontal">
     <div class="form-group row">
-        <label class="control-label col-sm-3" for="rollnumber">RollNumber</label>
+        <label class="control-label col-sm-3" for="venid">VendorId</label>
         <div class="col-sm-19">
-            <input type="text" name="rollnumber" placeholder="Enter Roll Number"><br>
+            <input type="text" name="venid" placeholder="Enter VendorId"><br>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="control-label col-sm-3" for="title">Title</label>
+        <div class="col-sm-19">
+            <input type="text" name="title" placeholder="Enter Vendor Title"><br>
         </div>
     </div>
     <div class="form-group row">
