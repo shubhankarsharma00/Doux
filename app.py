@@ -144,5 +144,5 @@ def venregister():
 
 @app.route('/venprofile/<int:VendorId>/')
 def profile_page(VendorId):
-    vendor = Vendor.query.filter_by(VendorId=VendorId).all()
-    return render_template("venprofile.html", vendor = vendor)
+    orders = Orders.query.filter_by(VendorId=VendorId).all()
+    return render_template("venprofile.html", orders = orders)
