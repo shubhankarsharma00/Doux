@@ -6,7 +6,7 @@ create table user(UserId int NOT NULL UNIQUE auto_increment,
     LastName varchar(255),
     FirstName varchar(255) NOT NULL,
     PhoneNumber varchar(10) NOT NULL,
-    PRIMARY KEY (RollNumber));
+    PRIMARY KEY (UserId));
 
 create table vendor(VendorId int NOT NULL UNIQUE auto_increment,
 	Password varchar(255) NOT NULL,
