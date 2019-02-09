@@ -1,5 +1,5 @@
 from app import app
-# app.jinja_env.globals.update(helpers=helpers)
+from config import *
 
 db.create_all()
 
