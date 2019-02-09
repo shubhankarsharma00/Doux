@@ -1,13 +1,14 @@
 create database doux;
 use doux;
-create table user(RollNumber int NOT NULL UNIQUE,
+create table user(UserId int NOT NULL UNIQUE auto_increment,
+    RollNumber varchar(255) NOT NULL UNIQUE,
 	Password varchar(255) NOT NULL,
     LastName varchar(255),
     FirstName varchar(255) NOT NULL,
     PhoneNumber varchar(10) NOT NULL,
     PRIMARY KEY (RollNumber));
 
-create table vendor(VendorId varchar(255) NOT NULL UNIQUE,
+create table vendor(VendorId int NOT NULL UNIQUE auto_increment,
 	Password varchar(255) NOT NULL,
     Title varchar(255) NOT NULL,
     LastName varchar(255),
@@ -17,7 +18,7 @@ create table vendor(VendorId varchar(255) NOT NULL UNIQUE,
 
 create table products(	
     ProductId int NOT NULL UNIQUE auto_increment,
-    VendorId varchar(255) NOT NULL,
+    VendorId int NOT NULL,
     ProductName varchar(255) NOT NULL,
     ProductPrice int NOT NULL,
     PRIMARY KEY (ProductId),
@@ -26,9 +27,16 @@ create table products(
 create table orders(
     OrderId int NOT NULL auto_increment,
     ProductId int NOT NULL,
-    RollNumber int NOT NULL,
+    UserId int NOT NULL,
     Quantity int NOT NULL,
     OrderAt DATETIME,
     PRIMARY KEY (OrderId),
     FOREIGN KEY (ProductId) REFERENCES products(ProductId),
-    FOREIGN KEY (RollNumber) REFERENCES user(RollNumber));
+    FOREIGN KEY (UserId) REFERENCES user(UserId));
+
+
+INSERT INTO user (RollNumber, Password, LastName, FirstName, PhoneNumber)
+VALUES ('admin', 'admin', 'admin', 'admin', 'xxxxxxxxxx');
+
+INSERT INTO vendor (Password, Title, LastName, FirstName, PhoneNumber)
+VALUES ('admin', 'admin', 'admin', 'admin', 'xxxxxxxxxx');
