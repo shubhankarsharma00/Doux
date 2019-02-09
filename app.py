@@ -98,7 +98,7 @@ def venlogin():
                 session['VendorId'] = vendor.VendorId
                 session['logged_in'] = True
                 session['type'] = 'vendor'
-        return redirect(url_for('homepage'))
+        return redirect(url_for("venprofile", VendorId = session['VendorId']))
 
 @app.route('/venlogout/')
 def venlogout():
@@ -143,6 +143,6 @@ def venregister():
             return redirect(url_for('homepage'))
 
 @app.route('/venprofile/<int:VendorId>/')
-def profile_page(VendorId):
+def venprofile(VendorId):
     orders = Orders.query.filter_by(VendorId=VendorId).all()
     return render_template("venprofile.html", orders = orders)

@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+
+<div>
+    <ul>
+        {% for order in orders %}
+            <li>{{order}}</li>
+        {% endfor %}
+    </ul>
+</div>
