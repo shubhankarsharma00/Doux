@@ -7,6 +7,11 @@ from models.Products import Products
 from models.User import User
 from models.Vendor import Vendor
 
+
+
+######### User #########
+
+
 @app.route('/')
 def homepage():
 	return render_template("index.html")
@@ -83,6 +88,10 @@ def userprofile(uid):
 
 
 ######### Vendor ############
+
+
+
+
 @app.route('/venlogin', methods=['POST','GET'])
 def venlogin(): 
     if request.method == "GET":
@@ -151,7 +160,8 @@ def venregister():
 
 @app.route('/venprofile/<int:VendorId>/')
 def venprofile(VendorId):
-    orders = Orders.query.filter_by(VendorId=VendorId).all()
-    return render_template("venprofile.html", orders = orders)
+    if 'VendorId' in session and session['VendorId'] == VendorId:
+        orders = Orders.query.filter_by(VendorId=VendorId).all()
+        return render_template("venprofile.html", orders = orders)
 
 
