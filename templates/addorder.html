@@ -1,0 +1,18 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<form method="post" class="form-horizontal">
+    <div class="form-group row">
+        <label class="control-label col-sm-3" for="quantity">Quantity</label>
+        <div class="col-sm-19">
+            <input type="text" name="quantity" placeholder="Enter Quantity"><br>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+            <input type="submit" value="Order" class="form-control btn btn-primary">
+        </div>
+    </div>
+</form>
+{% endblock %}
