@@ -160,10 +160,12 @@ def getvenorders(VendorId):
 def venprofile(VendorId):
     if 'VendorId' in session and session['VendorId'] == VendorId:
         orders = Orders.query.filter_by(VendorId=VendorId).all()
-        return render_template("venprofile.html", req = products, logged_in = True)
+        products = Products.query.filter_by(VendorId=VendorId).all()
+        return render_template("venprofile.html", req = orders, products = products, logged_in = True)
     else:
-        orders = Orders.query.filter_by(VendorId=VendorId).all()
-        return render_template("venprofile.html", req = orders, logged_in = False)
+        products = Products.query.filter_by(VendorId=VendorId).all()
+        # orders = Orders.query.filter_by(VendorId=VendorId).all()
+        return render_template("venprofile.html", req = products, logged_in = False)
 
             
 

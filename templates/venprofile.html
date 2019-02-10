@@ -2,10 +2,30 @@
 
 {% block content %}
 
-<ul>
-	{% for order in orders %}
-		<li> {{ order.OrderId }} </li>
-	{% endfor %}
-</ul>
+{% if logged_in == False %}
+
+<div class="container-fluid">
+	<div class="row">
+		{% for product in req %}
+		<div class="col-sm-12 col-md-6 col-lg-4">{{product.ProductName}}</div>
+		{% endfor %}	
+	</div>
+</div>
+
+{% else %}
+
+<div class="container-fluid">
+	<div class="row">
+		{% for order in req %}
+		{% for product in products %}
+		{% if product.ProductId == order.OrderId %}
+		<div class="col-sm-12 col-md-6 col-lg-4">{{product.ProductName}}</div>
+		{% endif %}
+		{% endfor %}
+		{% endfor %}
+	</div>
+</div>
+
+{% endif %}
 
 {% endblock %}
