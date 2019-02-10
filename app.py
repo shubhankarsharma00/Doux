@@ -177,7 +177,7 @@ def venprofile(VendorId):
     if 'VendorId' in session and session['VendorId'] == VendorId:
         orders = Orders.query.filter_by(VendorId=VendorId).all()
         products = Products.query.filter_by(VendorId=VendorId).all()
-        return render_template("venprofile.html", req = orders, products = products, logged_in = True)
+        return render_template("venprofile.html", req = orders, products = products,vendorid = VendorId,logged_in = True)
     else:
         products = Products.query.filter_by(VendorId=VendorId).all()
         # orders = Orders.query.filter_by(VendorId=VendorId).all()

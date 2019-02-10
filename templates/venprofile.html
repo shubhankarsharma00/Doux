@@ -25,7 +25,7 @@
 {% else %}
 
 <div class="container-fluid">
-	<div class="row">
+	<div class="row" id="product-status">
 		{% for order in req %}
 		{% for product in products %}
 		{% if product.ProductId == order.OrderId %}
@@ -43,6 +43,13 @@
 		{% endfor %}
 	</div>
 </div>
+<script>
+	$.get( "{{url_for('vendorid',VendorId={{vendorid}})}}", function( data ) {
+	$( "#product-status" ).text(  );
+	console.log(data);
+	alert( "Load was performed." );
+});
+</script>
 
 {% endif %}
 
