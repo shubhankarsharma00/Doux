@@ -13,9 +13,12 @@
             bottom: 0;
             width: 100%;
         }
+        /* body {
+            background-image: "bg.png";
+        } */
     </style>
 </head>
-<body>
+<body background="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEQfWJjnpfI62ePKYv0s274DytwHGgO43ICR-_HbB7RaISgUU0">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container-fluid">
                 <a class="navbar-brand" href="#"><strong>Doux</strong></a>
@@ -27,7 +30,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -49,17 +52,38 @@
                     </li>
                     {% endif %}
                     {% else %}
+                    <!-- <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            Login
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{url_for('userlogin')}}">User Login</a>
+                            <a class="dropdown-item" href="{{url_for('venlogin')}}">Vendor Login</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            SignUp
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{url_for('userregister')}}">User SignUp</a>
+                            <a class="dropdown-item" href="{{url_for('venregister')}}">Vendor SignUp</a>
+                        </div>
+                    </li> -->
+                    
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('userlogin')}}">User Log In</a>
+                        <a class="nav-link" href="{{url_for('userlogin')}}">User Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('venlogin')}}">Vendor Log In</a>
+                        <a class="nav-link" href="{{url_for('venlogin')}}">Vendor Login</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('userregister')}}">User Sign Up</a>
+                        <a class="nav-link" href="{{url_for('userregister')}}">User Signup</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url_for('venregister')}}">Vendor Sign Up</a>
+                        <a class="nav-link" href="{{url_for('venregister')}}">Vendor Signup</a>
                     </li>
                     {% endif %}
                 </ul>

@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<div class="container">
+    <h3>{{product.ProductName}}</h3> <br>
+    <strong>Price.</strong> {{product.ProductPrice}} <br>
+    <strong>Quantity.</strong> {{order.Quantity}} <br>
+    <strong>Status.</strong> {{order.Status}} <br>
+</div>
+
+{% endblock %}
