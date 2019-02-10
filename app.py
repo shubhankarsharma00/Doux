@@ -213,4 +213,12 @@ def addproduct():
         db.session.close()
     return redirect(url_for('homepage'))
 
+########## Search ##########
+
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.form['search_query']
+    vendors = Vendor.query.filter(Vendor.Title.contains(query))
+    user = User.query.filter_by(UserId = session['UserId']).first_or_404()
+    return render_template("userProfile.html",user=user,vendors=vendors)
 
