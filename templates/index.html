@@ -1,1 +1,17 @@
 {% extends "layout.html" %}
+
+{% block content %}
+<div class="container" style="margin: auto">
+    <div class="row">
+        <div class="col-sm-6"><a href="{{url_for('userlogin')}}" class="btn btn-info" role="button">User Login</a></div> 
+        <div class="col-sm-6"><a href="{{url_for('userregister')}}" class="btn btn-info" role="button">User SignUp</a></div> 
+    </div>
+    <br> <br>
+    <div class="row">
+            <div class="col-sm-6"><a href="{{url_for('venlogin')}}" class="btn btn-info" role="button">Vendor Login</a></div>
+            <div class="col-sm-6"><a href="{{url_for('venregister')}}" class="btn btn-info" role="button">Vendor SignUp</a></div> 
+    </div>
+</div>
+
+
+{% endblock %}

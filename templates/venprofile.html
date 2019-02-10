@@ -23,9 +23,13 @@
 </div>
 
 {% else %}
+<script>
+	prev = -1;
+</script>
+
 
 <div class="container-fluid">
-	<div class="row">
+	<div class="row" id="product-status">
 		{% for order in req %}
 		{% for product in products %}
 		{% if product.ProductId == order.OrderId %}
@@ -52,6 +56,22 @@
 		{% endfor %}
 	</div>
 </div>
+<script>
+	setInterval($.get( "{{url_for('getvenorders',VendorId=vendor.VendorId)}}", function( data ) {
+		data = Number(data);
+		if(data != localStorage.setItem("prev"))
+		{
+			
+			prev = data;
+			localStorage.setItem("prev", data);
+			location.reload(true);
+		}
+		else
+		{
+			location.reload(false);
+		}
+}) , 10000);
+</script>
 
 {% endif %}
 
