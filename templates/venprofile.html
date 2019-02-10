@@ -32,7 +32,6 @@
 	<div class="row" id="product-status">
 		{% for order in req %}
 		{% for product in products %}
-		{% if product.ProductId == order.OrderId %}
 		<div class="col-sm-12 col-md-6 col-lg-4">
 			<strong>{{order.OrderId}}. {{product.ProductName}}</strong>
 			<br>
@@ -51,7 +50,6 @@
 			<br>
 			<!-- <a href="{{url_for('addorder', pid=product.ProductId)}}" class="btn btn-info" role="button">Make Request</a> -->
 		</div>
-		{% endif %}
 		{% endfor %}
 		{% endfor %}
 	</div>
@@ -61,16 +59,15 @@
 		data = Number(data);
 		if(data != localStorage.setItem("prev"))
 		{
-			
-			prev = data;
 			localStorage.setItem("prev", data);
+			console.log(localStorage.setItem("prev"))
 			location.reload(true);
 		}
 		else
 		{
 			location.reload(false);
 		}
-}) , 10000);
+}) , 2000);
 </script>
 
 {% endif %}
