@@ -81,9 +81,10 @@ def userregister():
 
 @app.route('/user/<int:uid>')
 def userprofile(uid):
+    vendors = Vendor.query.filter_by().all()
     if 'UserId' in session and session['UserId'] == uid:
         user = User.query.filter_by(UserId = uid).first_or_404()
-        return render_template("userProfile.html", user = user)
+        return render_template("userProfile.html", user = user, vendors=vendors)
 
 
 
