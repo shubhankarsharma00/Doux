@@ -16,7 +16,12 @@ from models.Vendor import Vendor
 
 @app.route('/')
 def homepage():
-	return render_template("index.html")
+    # if session['logged_in'] == False:
+    return render_template("index.html")
+    # else:
+    #     if session['type'] == 'user':
+    #         return redirect(url_for('user', uid=))
+
 
 @app.route('/userlogin', methods=['POST','GET'])
 def userlogin():	
@@ -84,7 +89,9 @@ def userprofile(uid):
     vendors = Vendor.query.filter_by().all()
     if 'UserId' in session and session['UserId'] == uid:
         user = User.query.filter_by(UserId = uid).first_or_404()
-        return render_template("userProfile.html", user = user, vendors=vendors)
+        orders = Orders.query.filter_by(UserId = uid).all()
+        products = Products.query.all()
+        return render_template("userProfile.html", user = user, orders = orders, products = products, vendors = vendors)
 
 
 
@@ -147,7 +154,7 @@ def venregister():
                     PhoneNumber = phone_no,
                     FirstName = firstname,
                     LastName = lastname)
-        print vendor.VendorId
+        # print vendor.VendorId
         db.session.add(vendor)
         db.session.commit()
         db.session.close()
@@ -194,6 +201,13 @@ def addorder(pid):
         db.session.commit()
         db.session.close()
     return redirect(url_for('userprofile',uid = session['UserId']))
+
+@app.route('/orderdetail/<int:oid>')
+def orderdetail(oid):
+    order = Orders.query.filter_by(OrderId=oid).first()
+    productid = order.ProductId
+    product = Products.query.filter_by(ProductId=productid).first()
+    return render_template('orderdetail.html', order = order, product = product)
 
 
 ########## Products ###########

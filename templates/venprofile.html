@@ -7,7 +7,17 @@
 <div class="container-fluid">
 	<div class="row">
 		{% for product in req %}
-		<div class="col-sm-12 col-md-6 col-lg-4">{{product.ProductName}}</div>
+		<!-- <div class="col-sm-12 col-md-6 col-lg-4">{{product.ProductName}}</div> -->
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<strong>{{product.ProductId}}. {{product.ProductName}}</strong>
+			<br>
+			Product Name: {{product.ProductName}}
+			<br>
+			Price: {{product.ProductPrice}}
+			<br>
+			<a href="{{url_for('addorder', pid=product.ProductId)}}" class="btn btn-info" role="button">Make Request</a>
+		</div>
+
 		{% endfor %}	
 	</div>
 </div>
@@ -19,7 +29,15 @@
 		{% for order in req %}
 		{% for product in products %}
 		{% if product.ProductId == order.OrderId %}
-		<div class="col-sm-12 col-md-6 col-lg-4">{{order.OrderId}} {{product.ProductName}} {{order.Quantity}} {{order.Status}}</div>
+		<div class="col-sm-12 col-md-6 col-lg-4">
+			<strong>{{order.OrderId}}. {{product.ProductName}}</strong>
+			<br>
+			Quantity: {{order.Quantity}}
+			<br>
+			Status: {{order.Status}}
+			<br>
+			<!-- <a href="{{url_for('addorder', pid=product.ProductId)}}" class="btn btn-info" role="button">Make Request</a> -->
+		</div>
 		{% endif %}
 		{% endfor %}
 		{% endfor %}
