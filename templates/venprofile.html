@@ -61,19 +61,19 @@
 	<a href="{{url_for('addproduct')}}" class="btn btn-info" role="button">Add Product</a>
 </div>
 <script>
-	setInterval($.get( "{{url_for('getvenorders',VendorId=vendor.VendorId)}}", function( data ) {
-		data = Number(data);
-		if(data != localStorage.setItem("prev"))
-		{
-			localStorage.setItem("prev", data);
-			console.log(localStorage.setItem("prev"))
-			location.reload(true);
-		}
-		else
-		{
-			location.reload(false);
-		}
-}) , 2000);
+	prev = -1;
+	setInterval(function( ) {
+		$.get( "{{url_for('getvenorders',VendorId=vendor.VendorId)}}", function(data){
+			data = Number(data);
+			if(data != prev && prev != -1)
+			{
+				console.log("reload!");
+				location.reload(true);
+			}
+			prev = data;
+			console.log("tag", data);
+		});
+	}, 1000);
 </script>
 
 {% endif %}
