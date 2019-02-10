@@ -1,19 +1,31 @@
 {% extends "layout.html" %}
 
 {% block heading %}{{user.FirstName}}'s Profile{% endblock %}
+<!-- <style>
+    .ven-block{
+        font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+        background-color: azure;
+    }
+</style> -->
 
 {% block content %}
+
+<style>
+    .blk{
+        background-color: azure;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+</style>
+
 <h2>Hello, {{user.FirstName}} {{user.LastName}}</h2>
-<div class="container-fluid">
-    <div class = "row" ></div>
+    <h3>Checkout Our Vendors</h3>
+    <div class = "row" >
         {% for v in vendors%}
         <div class="col-sm-12 col-md-6 col-md-4">
-            v.Title
+            <a href="{{url_for('venprofile',VendorId=v.VendorId)}}"><div class="blk"><h1>v.Title</h1></div></a>
         </div>
         {% endfor %}
-        
     </div>
-</div>
     
 
 {% endblock %}
