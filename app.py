@@ -170,14 +170,16 @@ def venregister():
 @app.route('/api/getvenorders/<int:VendorId>/')
 def getvenorders(VendorId):
     orders = Orders.query.filter_by(VendorId=VendorId).all()
-    return jsonify(orders)    
+    return str(orders[len(orders)-1].OrderId)
+    
 
 @app.route('/venprofile/<int:VendorId>/')
 def venprofile(VendorId):
     if 'VendorId' in session and session['VendorId'] == VendorId:
         orders = Orders.query.filter_by(VendorId=VendorId).all()
         products = Products.query.filter_by(VendorId=VendorId).all()
-        return render_template("venprofile.html", req = orders, products = products,vendorid = VendorId,logged_in = True)
+        vendor = Vendor.query.filter_by(VendorId=VendorId).first_or_404()
+        return render_template("venprofile.html", req = orders, products = products,vendor = vendor,logged_in = True)
     else:
         products = Products.query.filter_by(VendorId=VendorId).all()
         # orders = Orders.query.filter_by(VendorId=VendorId).all()
