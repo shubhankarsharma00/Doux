@@ -32,6 +32,7 @@
 	<div class="row" id="product-status">
 		{% for order in req %}
 		{% for product in products %}
+		{% if order.ProductId == product.ProductId %}
 		<div class="col-sm-12 col-md-6 col-lg-4">
 			<strong>{{order.OrderId}}. {{product.ProductName}}</strong>
 			<br>
@@ -50,9 +51,14 @@
 			<br>
 			<!-- <a href="{{url_for('addorder', pid=product.ProductId)}}" class="btn btn-info" role="button">Make Request</a> -->
 		</div>
+		{% endif %}
 		{% endfor %}
 		{% endfor %}
 	</div>
+	<br>
+	<br>
+	<br>
+	<a href="{{url_for('addproduct')}}" class="btn btn-info" role="button">Add Product</a>
 </div>
 <script>
 	setInterval($.get( "{{url_for('getvenorders',VendorId=vendor.VendorId)}}", function( data ) {

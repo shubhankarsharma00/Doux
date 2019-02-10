@@ -22,7 +22,7 @@ def homepage():
             if session['type'] == 'user':
                 return redirect(url_for('userprofile', uid=session['UserId']))
             else:
-                return redirect(url_for('user', uid=session['VendorId']))            
+                return redirect(url_for('venprofile', VendorId=session['VendorId']))            
         else:
             return render_template("index.html")
     except:
@@ -213,9 +213,10 @@ def addorder(pid):
 @app.route('/orderdetail/<int:oid>')
 def orderdetail(oid):
     order = Orders.query.filter_by(OrderId=oid).first()
+    VendorId=order.VendorId
     productid = order.ProductId
     product = Products.query.filter_by(ProductId=productid).first()
-    return redirect(url_for("venprofile", VendorId = session['VendorId']))
+    return render_template("orderdetail.html", order = order, product = product)
 
 @app.route('/change_state_accept/<int:pid>')
 def change_state_accept(pid):
