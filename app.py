@@ -21,7 +21,7 @@ def userlogin():
     if request.method == "GET":
         return render_template("userlogin.html")
     else:
-        RollNumber = request.form['RollNumber']
+        RollNumber = request.form['rollnumber']
         password = request.form['password']
         user = User.query.filter_by(RollNumber=RollNumber).first()
         if not(user):
@@ -58,9 +58,11 @@ def userregister():
                 flash("Invalid RollNumber!")
                 return redirect(url_for('userregister'))
         else:
+            rollnumber = request.form['rollnumber']
             password = request.form['password']
             hashed_password = sha256_crypt.hash(password)
-            email = request.form['email']
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
             phone_no = request.form['phone_no']
             if len(phone_no)<10 or len(phone_no)>10:
                 flash("Invalid Phone no!")
@@ -71,7 +73,9 @@ def userregister():
                     return redirect(url_for('userregister'))
             user = User(RollNumber = rollnumber,
                         Password = hashed_password,
-                        PhoneNumber = phone_no)
+                        PhoneNumber = phone_no,
+                        FirstName = firstname,
+                        LastName = lastname)
             db.session.add(user)
             db.session.commit()
             db.session.close()
@@ -134,11 +138,11 @@ def venregister():
                 flash("Invalid Title!")
                 return redirect(url_for('venregister'))
         else:
+            title = request.form('title')
             password = request.form['password']
             hashed_password = sha256_crypt.hash(password)
-            email = request.form['email']
-            phone_no = request.form['phone_no']
-            fistname = request.form['fistname']
+            firstname = request.form['firstname']
+            lastname = request.form['lastname']
             phone_no = request.form['phone_no']
             if len(phone_no)<10 or len(phone_no)>10:
                 flash("Invalid Phone no!")
