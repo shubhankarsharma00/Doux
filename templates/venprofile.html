@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+
+<ul>
+	{% for order in orders %}
+		<li> {{ order.OrderId }} </li>
+	{% endfor %}
+</ul>
+
+{% endblock %}

@@ -33,7 +33,7 @@ def userlogin():
                 session['UserId'] = user.UserId
                 session['logged_in'] = True
                 session['type'] = 'user'
-        return redirect(url_for('homepage'))
+        return redirect(url_for('userprofile',uid = session['UserId']))
 
 @app.route('/userlogout/')
 def userlogout():
@@ -74,10 +74,17 @@ def userregister():
             return redirect(url_for('homepage'))
 
 
+@app.route('/user/<int:uid>')
+def userprofile(uid):
+    if 'UserId' in session and session['UserId'] == uid:
+        user = User.query.filter_by(UserId = uid).first_or_404()
+        return render_template("userProfile.html", user = user)
+
+
 
 ######### Vendor ############
 @app.route('/venlogin', methods=['POST','GET'])
-def venlogin():	
+def venlogin(): 
     if request.method == "GET":
         return render_template("venlogin.html")
     else:
@@ -146,15 +153,5 @@ def venregister():
 def venprofile(VendorId):
     orders = Orders.query.filter_by(VendorId=VendorId).all()
     return render_template("venprofile.html", orders = orders)
-
-@app.route('/user/<int:uid>')
-def userProfile(uid):
-    if 'UserId' in session and session['UserId'] == uid:  
-        user = User.query.filter_by(UserId = uid).first_or_404()
-        return render_template("editUserProfile.html", user = user)
-    else:
-        user = User.query.filter_by(UserId = uid).first_or_404()
-        return render_template("userProfile.html", user = user)
-
 
 
