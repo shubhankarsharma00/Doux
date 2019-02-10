@@ -35,6 +35,15 @@
 			Quantity: {{order.Quantity}}
 			<br>
 			Status: {{order.Status}}
+			{% if order.Status=='pending' %}
+			<br><a role = "button" class="btn btn-info" href="{{url_for('change_state_accept',pid = order.OrderId)}}">
+				Accept
+			</a>
+			<a role="button" class="btn btn-info" href="{{url_for('change_state_reject',pid = order.OrderId)}}">
+				Reject
+			</a>
+
+			{% endif %}
 			<br>
 			<!-- <a href="{{url_for('addorder', pid=product.ProductId)}}" class="btn btn-info" role="button">Make Request</a> -->
 		</div>

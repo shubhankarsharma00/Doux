@@ -27,7 +27,7 @@ def homepage():
             return render_template("index.html")
     except:
         return render_template("index.html")
-        
+
 
 @app.route('/userlogin', methods=['POST','GET'])
 def userlogin():	
@@ -213,7 +213,23 @@ def orderdetail(oid):
     order = Orders.query.filter_by(OrderId=oid).first()
     productid = order.ProductId
     product = Products.query.filter_by(ProductId=productid).first()
-    return render_template('orderdetail.html', order = order, product = product)
+    return redirect(url_for("venprofile", VendorId = session['VendorId']))
+
+@app.route('/change_state_accept/<int:pid>')
+def change_state_accept(pid):
+    order = Orders.query.filter_by(OrderId=pid).first()
+    VendorId=order.VendorId
+    order.Status = 'accepted'
+    db.session.commit()
+    return redirect(url_for("venprofile", VendorId = session['VendorId']))
+
+@app.route('/change_state_reject/<int:pid>')
+def change_state_reject(pid):
+    order = Orders.query.filter_by(OrderId=pid).first()
+    VendorId=order.VendorId
+    order.Status = 'rejected'
+    db.session.commit()
+    return redirect(url_for("venprofile", VendorId = session['VendorId']))
 
 
 ########## Products ###########
