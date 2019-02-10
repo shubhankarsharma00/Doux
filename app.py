@@ -52,35 +52,29 @@ def userregister():
     if request.method == "GET":
         return render_template("userregister.html")
     else:
-        rollnumber = request.form['RollNumber']
-        for ch in rollnumber:
-            if not (ch.isalpha() or ch.isdigit()):
-                flash("Invalid RollNumber!")
-                return redirect(url_for('userregister'))
-        else:
-            rollnumber = request.form['rollnumber']
-            password = request.form['password']
-            hashed_password = sha256_crypt.hash(password)
-            firstname = request.form['firstname']
-            lastname = request.form['lastname']
-            phone_no = request.form['phone_no']
-            if len(phone_no)<10 or len(phone_no)>10:
+        rollnumber = request.form['rollnumber']
+        password = request.form['password']
+        hashed_password = sha256_crypt.hash(password)
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        phone_no = request.form['phone_no']
+        if len(phone_no)<10 or len(phone_no)>10:
+            flash("Invalid Phone no!")
+            return redirect(url_for('userregister'))
+        for ch in phone_no:
+            if not ch.isdigit():
                 flash("Invalid Phone no!")
                 return redirect(url_for('userregister'))
-            for ch in phone_no:
-                if not ch.isdigit():
-                    flash("Invalid Phone no!")
-                    return redirect(url_for('userregister'))
-            user = User(RollNumber = rollnumber,
-                        Password = hashed_password,
-                        PhoneNumber = phone_no,
-                        FirstName = firstname,
-                        LastName = lastname)
-            db.session.add(user)
-            db.session.commit()
-            db.session.close()
-            flash("Successfully registered!")
-            return redirect(url_for('homepage'))
+        user = User(RollNumber = rollnumber,
+                    Password = hashed_password,
+                    PhoneNumber = phone_no,
+                    FirstName = firstname,
+                    LastName = lastname)
+        db.session.add(user)
+        db.session.commit()
+        db.session.close()
+        flash("Successfully registered!")
+        return redirect(url_for('userlogin'))
 
 
 @app.route('/user/<int:uid>')
@@ -132,40 +126,43 @@ def venregister():
     if request.method == "GET":
         return render_template("venregister.html")
     else:
-        title = request.form['Title']
-        for ch in title:
-            if not (ch.isalpha() or ch.isdigit()):
-                flash("Invalid Title!")
-                return redirect(url_for('venregister'))
-        else:
-            title = request.form('title')
-            password = request.form['password']
-            hashed_password = sha256_crypt.hash(password)
-            firstname = request.form['firstname']
-            lastname = request.form['lastname']
-            phone_no = request.form['phone_no']
-            if len(phone_no)<10 or len(phone_no)>10:
+        title = request.form['title']
+        password = request.form['password']
+        hashed_password = sha256_crypt.hash(password)
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        phone_no = request.form['phone_no']
+        if len(phone_no)<10 or len(phone_no)>10:
+            flash("Invalid Phone no!")
+            return redirect(url_for('venregister'))
+        for ch in phone_no:
+            if not ch.isdigit():
                 flash("Invalid Phone no!")
                 return redirect(url_for('venregister'))
-            for ch in phone_no:
-                if not ch.isdigit():
-                    flash("Invalid Phone no!")
-                    return redirect(url_for('venregister'))
-            vendor = Vendor(Title = title,
-                        Password = hashed_password,
-                        PhoneNumber = phone_no,
-                        FirstName = firstname,
-                        LastName = lastname)
-            db.session.add(vendor)
-            db.session.commit()
-            db.session.close()
-            flash("Successfully registered!")
-            return redirect(url_for('homepage'))
+        vendor = Vendor(Title = title,
+                    Password = hashed_password,
+                    PhoneNumber = phone_no,
+                    FirstName = firstname,
+                    LastName = lastname)
+        db.session.add(vendor)
+        db.session.commit()
+        db.session.close()
+        flash("Successfully registered!")
+        return redirect(url_for('venlogin'))
+
+@app.route('/api/getvenorders/<int:VendorId>/')
+def getvenorders(VendorId):
+    orders = Orders.query.filter_by(VendorId=VendorId).all()
+    return jsonify(orders)    
 
 @app.route('/venprofile/<int:VendorId>/')
 def venprofile(VendorId):
     if 'VendorId' in session and session['VendorId'] == VendorId:
         orders = Orders.query.filter_by(VendorId=VendorId).all()
-        return render_template("venprofile.html", orders = orders)
+        return render_template("venprofile.html", req = products, logged_in = True)
+    else:
+        orders = Orders.query.filter_by(VendorId=VendorId).all()
+        return render_template("venprofile.html", req = orders, logged_in = False)
 
+            
 
