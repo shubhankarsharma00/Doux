@@ -13,15 +13,21 @@ from models.Vendor import Vendor
 
 ######### User #########
 
+# session['logged_in']=False
 
 @app.route('/')
 def homepage():
-    # if session['logged_in'] == False:
-    return render_template("index.html")
-    # else:
-    #     if session['type'] == 'user':
-    #         return redirect(url_for('user', uid=))
-
+    try:
+        if session['logged_in']:
+            if session['type'] == 'user':
+                return redirect(url_for('userprofile', uid=session['UserId']))
+            else:
+                return redirect(url_for('user', uid=session['VendorId']))            
+        else:
+            return render_template("index.html")
+    except:
+        return render_template("index.html")
+        
 
 @app.route('/userlogin', methods=['POST','GET'])
 def userlogin():	
@@ -227,4 +233,12 @@ def addproduct():
         db.session.close()
     return redirect(url_for('homepage'))
 
+########## Search ##########
+
+@app.route('/search', methods=['POST'])
+def search():
+    query = request.form['search_query']
+    vendors = Vendor.query.filter(Vendor.Title.contains(query))
+    user = User.query.filter_by(UserId = session['UserId']).first_or_404()
+    return render_template("userProfile.html",user=user,vendors=vendors)
 

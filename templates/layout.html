@@ -34,8 +34,8 @@
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
-                    <form class="form-inline my-2 my-lg-0 ml-auto">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <form action="{{url_for('search')}}" method="post" class="form-inline my-2 my-lg-0 ml-auto">
+                        <input class="form-control mr-sm-2" name="search_query" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
                     </form>
                     {% if session['logged_in'] %}
