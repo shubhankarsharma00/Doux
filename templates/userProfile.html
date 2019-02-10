@@ -3,6 +3,17 @@
 {% block heading %}{{user.FirstName}}'s Profile{% endblock %}
 
 {% block content %}
-<h2>{{user.FirstName}} {{user.LastName}}, hello.</h2>
+<h2>Hello, {{user.FirstName}} {{user.LastName}}</h2>
+<div class="container-fluid">
+    <div class = "row" ></div>
+        {% for v in vendors%}
+        <div class="col-sm-12 col-md-6 col-md-4">
+            v.Title
+        </div>
+        {% endfor %}
+        
+    </div>
+</div>
+    
 
 {% endblock %}
