@@ -1,3 +1,5 @@
+import datetime
+import time
 from flask import *
 from flask_sqlalchemy import *
 from passlib.hash import sha256_crypt
@@ -80,9 +82,8 @@ def userregister():
 @app.route('/user/<int:uid>')
 def userprofile(uid):
     if 'UserId' in session and session['UserId'] == uid:
-        vendors = Vendor.query.filter_by().all()
         user = User.query.filter_by(UserId = uid).first_or_404()
-        return render_template("userProfile.html", user = user, vendors = vendors)
+        return render_template("userProfile.html", user = user)
 
 
 
@@ -145,6 +146,7 @@ def venregister():
                     PhoneNumber = phone_no,
                     FirstName = firstname,
                     LastName = lastname)
+        print vendor.VendorId
         db.session.add(vendor)
         db.session.commit()
         db.session.close()
@@ -168,4 +170,46 @@ def venprofile(VendorId):
         return render_template("venprofile.html", req = products, logged_in = False)
 
             
+
+########## Order ###########
+
+@app.route('/addorder/<int:pid>', methods=['POST','GET'])
+def addorder(pid):
+    if request.method == "GET":
+        return render_template("addorder.html")
+    else:
+        order_time = time.strftime('%Y-%m-%d %H:%M:%S')
+        quantity = request.form['quantity']
+        product = Products.query.filter_by(ProductId=pid).first()
+        vid = product.VendorId
+        status = "pending"
+        order = Orders(VendorId = vid, 
+        ProductId = pid,
+        UserId = session['UserId'],
+        Status = status,
+        Quantity = quantity,
+        OrderAt = order_time)
+        db.session.add(order)
+        db.session.commit()
+        db.session.close()
+    return redirect(url_for('userprofile',uid = session['UserId']))
+
+
+########## Products ###########
+
+@app.route('/addproduct', methods=['POST','GET'])
+def addproduct():
+    if request.method == "GET":
+        return render_template("addproduct.html")
+    else:
+        productname = request.form['productname']
+        productprice = request.form['productprice']
+        product = Products(ProductName = productname,
+        ProductPrice = productprice,
+        VendorId = session['VendorId'])
+        db.session.add(product)
+        db.session.commit()
+        db.session.close()
+    return redirect(url_for('homepage'))
+
 
