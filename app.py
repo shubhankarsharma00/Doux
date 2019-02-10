@@ -13,15 +13,21 @@ from models.Vendor import Vendor
 
 ######### User #########
 
+# session['logged_in']=False
 
 @app.route('/')
 def homepage():
-    # if session['logged_in'] == False:
-    return render_template("index.html")
-    # else:
-    #     if session['type'] == 'user':
-    #         return redirect(url_for('user', uid=))
-
+    try:
+        if session['logged_in']:
+            if session['type'] == 'user':
+                return redirect(url_for('userprofile', uid=session['UserId']))
+            else:
+                return redirect(url_for('user', uid=session['VendorId']))            
+        else:
+            return render_template("index.html")
+    except:
+        return render_template("index.html")
+        
 
 @app.route('/userlogin', methods=['POST','GET'])
 def userlogin():	
